@@ -1,0 +1,140 @@
+{{ define "main" }}
+{{ if eq .Section "posts" }}
+<article class="article-page">
+    <div class="container">
+        {{ partial "breadcrumb.html" . }}
+
+        <header class="article-header">
+            <h1>{{ .Title }}</h1>
+            <div class="article-meta">
+                <span class="author">By {{ with .Params.author }}{{ . }}{{ else }}{{ site.Params.author }}{{ end }}</span>
+                <span class="date">Updated {{ .Lastmod.Format "January 2, 2006" }}</span>
+                {{ with .Params.rating }}
+                <span class="rating-badge">Rating: {{ . }}/5</span>
+                {{ end }}
+            </div>
+            {{ with .Params.summary }}
+            <p class="article-summary">{{ . }}</p>
+            {{ end }}
+        </header>
+
+        <div class="article-layout">
+            <div class="article-main">
+                {{ partial "toc.html" . }}
+
+                <div class="article-content">
+                    {{ .Content }}
+                </div>
+
+                {{ with .Params.products }}
+                <section class="products-section">
+                    <h2>Our Top Picks</h2>
+                    {{ range $index, $product := . }}
+                    <div class="product-card" id="product-{{ $index }}">
+                        <div class="product-rank">#{{ add $index 1 }}</div>
+                        <div class="product-info">
+                            <h3 class="product-name">{{ $product.name }}</h3>
+                            {{ with $product.badge }}
+                            <span class="product-badge">{{ . }}</span>
+                            {{ end }}
+                            <div class="product-rating">
+                                {{ range seq (int (or $product.rating 4)) }}<span class="star">&#9733;</span>{{ end }}
+                                {{ range seq (sub 5 (int (or $product.rating 4))) }}<span class="star empty">&#9734;</span>{{ end }}
+                                <span class="rating-text">{{ $product.rating }}/5</span>
+                            </div>
+                            {{ with $product.description }}
+                            <p class="product-desc">{{ . }}</p>
+                            {{ end }}
+                            {{ with $product.pros }}
+                            <div class="product-pros">
+                                <h4>What We Like</h4>
+                                <ul>
+                                    {{ range . }}<li>{{ . }}</li>{{ end }}
+                                </ul>
+                            </div>
+                            {{ end }}
+                            {{ with $product.cons }}
+                            <div class="product-cons">
+                                <h4>What We Don't Like</h4>
+                                <ul>
+                                    {{ range . }}<li>{{ . }}</li>{{ end }}
+                                </ul>
+                            </div>
+                            {{ end }}
+                            {{ with $product.specs }}
+                            <div class="product-specs">
+                                <h4>Key Specs</h4>
+                                <table>
+                                    {{ range $key, $value := . }}
+                                    <tr><td>{{ $key }}</td><td>{{ $value }}</td></tr>
+                                    {{ end }}
+                                </table>
+                            </div>
+                            {{ end }}
+                            <div class="product-cta">
+                                {{ with $product.price }}<span class="product-price">{{ . }}</span>{{ end }}
+                                {{ with $product.affiliate_link }}
+                                <a href="{{ . }}" class="btn btn-primary cta-button" target="_blank" rel="nofollow sponsored noopener" data-affiliate="{{ $product.name }}">
+                                    {{ site.Params.affiliate.ctaText }}
+                                </a>
+                                {{ end }}
+                            </div>
+                        </div>
+                    </div>
+                    {{ end }}
+                </section>
+                {{ end }}
+
+                {{ with .Params.faq }}
+                <section class="faq-section">
+                    <h2>Frequently Asked Questions</h2>
+                    {{ range . }}
+                    <div class="faq-item">
+                        <h3 class="faq-question">{{ .question }}</h3>
+                        <div class="faq-answer">{{ .answer | markdownify }}</div>
+                    </div>
+                    {{ end }}
+                </section>
+                {{ end }}
+            </div>
+
+            <aside class="article-sidebar">
+                <div class="sidebar-widget">
+                    <h3>Quick Comparison</h3>
+                    {{ with .Params.products }}
+                    <div class="quick-compare">
+                        {{ range first 3 . }}
+                        <a href="#product-{{ . }}" class="compare-item">
+                            <span class="compare-name">{{ .name }}</span>
+                            <span class="compare-rating">{{ .rating }}/5</span>
+                        </a>
+                        {{ end }}
+                    </div>
+                    {{ end }}
+                </div>
+
+                <div class="sidebar-widget">
+                    <h3>Related Reviews</h3>
+                    {{ $related := where (where site.RegularPages "Section" "posts") "Permalink" "!=" .Permalink | first 5 }}
+                    <ul class="related-list">
+                        {{ range $related }}
+                        <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+                        {{ end }}
+                    </ul>
+                </div>
+            </aside>
+        </div>
+    </div>
+</article>
+{{ else }}
+<div class="container">
+    <article class="static-page">
+        {{ partial "breadcrumb.html" . }}
+        <h1>{{ .Title }}</h1>
+        <div class="static-content">
+            {{ .Content }}
+        </div>
+    </article>
+</div>
+{{ end }}
+{{ end }}

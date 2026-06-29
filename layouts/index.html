@@ -1,0 +1,108 @@
+{{ define "main" }}
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <h1 class="hero-title">Reviews You Can Trust. Products You'll Love.</h1>
+            <p class="hero-subtitle">Expert product reviews and testing to help you make smart buying decisions. Unbiased recommendations on electronics, home goods, and more.</p>
+            <a href="#trending" class="hero-cta">Explore Top Reviews</a>
+        </div>
+    </div>
+</section>
+
+<section class="section categories-section">
+    <div class="container">
+        <h2 class="section-title">Top Review Category</h2>
+        <div class="category-grid">
+            <a href="/electronics/" class="category-card">
+                <h3 class="category-name">Electronics</h3>
+                <p class="category-desc">Expert reviews on headphones, smartphones, laptops and more</p>
+            </a>
+            <a href="/home-kitchen/" class="category-card">
+                <h3 class="category-name">Home & Kitchen</h3>
+                <p class="category-desc">Best picks for air fryers, cookware, pillows and more</p>
+            </a>
+            <a href="/health-fitness/" class="category-card">
+                <h3 class="category-name">Health & Fitness</h3>
+                <p class="category-desc">Top products for wellness, fitness tracking and personal care</p>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section id="trending" class="section trending">
+    <div class="container">
+        <h2 class="section-title">Trending Top Products</h2>
+        <div class="article-grid">
+            {{ $recent := where site.RegularPages "Section" "posts" | first 9 }}
+            {{ range $recent }}
+            <article class="article-card">
+                <a href="{{ .Permalink }}" class="card-link">
+                    {{ with .Params.featured_image }}
+                    <div class="card-image">
+                        <img src="{{ . }}" alt="{{ $.Title }}" loading="lazy" width="400" height="250">
+                    </div>
+                    {{ end }}
+                    <div class="card-content">
+                        <h3 class="card-title">{{ .Title }}</h3>
+                        <p class="card-excerpt">{{ with .Params.summary }}{{ . | truncate 120 }}{{ end }}</p>
+                        <span class="read-more">READ MORE +</span>
+                    </div>
+                </a>
+            </article>
+            {{ end }}
+        </div>
+    </div>
+</section>
+
+<section class="section how-we-test">
+    <div class="container">
+        <h2 class="section-title">How We Make The Best Product Reviews</h2>
+        <p class="section-intro">We take pride in delivering the most reliable and comprehensive product reviews. Our process begins with in-depth research, where we analyze customer feedback, expert opinions, and market trends.</p>
+        <div class="steps-grid">
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <h3>Market Research</h3>
+                <p>In-depth analysis of trends, customer needs, and competitor insights to guide informed decisions.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <h3>Identifying Key Features</h3>
+                <p>Highlighting the essential features that matter most in every product.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <h3>Selecting Products</h3>
+                <p>We carefully handpick products through extensive research, analyzing quality and performance.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">4</div>
+                <h3>Analyzing Reviews</h3>
+                <p>Our thorough review process ensures you get honest, unbiased insights to make the best purchasing decisions.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">5</div>
+                <h3>Manual Testing</h3>
+                <p>Hands-on testing of every product to ensure they function as expected in real-world conditions.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section about-brief">
+    <div class="container">
+        <h2 class="section-title">Helping You Make Smarter Choices, One Review at a Time</h2>
+        <div class="about-features">
+            <div class="about-feature">
+                <p>Our reviews are crafted with honest, detailed analysis to provide transparent insights and guide your purchasing decisions confidently.</p>
+            </div>
+            <div class="about-feature">
+                <p>We evaluate key features, performance, pros, and cons to ensure you have a complete understanding of every product.</p>
+            </div>
+            <div class="about-feature">
+                <p>Skip the hassle of endless research - we simplify your shopping experience by narrowing down the best options for your needs.</p>
+            </div>
+        </div>
+        <a href="/about/" class="btn btn-secondary">About Us</a>
+    </div>
+</section>
+{{ end }}

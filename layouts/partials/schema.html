@@ -1,0 +1,103 @@
+{{ if .IsHome }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "{{ site.Title }}",
+  "url": "{{ site.BaseURL }}",
+  "logo": "{{ site.BaseURL }}images/logo.png",
+  "description": "{{ site.Params.description }}",
+  "email": "{{ site.Params.email }}",
+  "sameAs": [
+    {{ with site.Params.social.twitter }}"https://twitter.com/{{ . }}"{{ end }}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "{{ site.Title }}",
+  "url": "{{ site.BaseURL }}",
+  "description": "{{ site.Params.description }}",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "{{ site.BaseURL }}?s={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+{{ else if .IsPage }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "{{ .Title }}",
+  "description": "{{ with .Description }}{{ . }}{{ else }}{{ with .Params.summary }}{{ . }}{{ end }}{{ end }}",
+  "image": {{ with .Params.featured_image }}"{{ . | absURL }}"{{ else }}"{{ site.Params.images.default | absURL }}"{{ end }},
+  "datePublished": "{{ .Date.Format "2006-01-02" }}",
+  "dateModified": "{{ .Lastmod.Format "2006-01-02" }}",
+  "author": {
+    "@type": "Organization",
+    "name": "{{ with .Params.author }}{{ . }}{{ else }}{{ site.Params.author }}{{ end }}"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "{{ site.Title }}",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ site.BaseURL }}images/logo.png"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ .Permalink }}"
+  }
+}
+</script>
+{{ with .Params.products }}
+{{ $productCount := len . }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "{{ $.Title }}",
+  "itemListElement": [
+    {{ range $index, $product := . }}
+    {
+      "@type": "ListItem",
+      "position": {{ add $index 1 }},
+      "item": {
+        "@type": "Product",
+        "name": "{{ $product.name }}"
+      }
+    }{{ if not (eq (add $index 1) $productCount) }},{{ end }}
+    {{ end }}
+  ]
+}
+</script>
+{{ end }}
+{{ with .Params.faq }}
+{{ $faqCount := len . }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {{ range $index, $faq := . }}
+    {
+      "@type": "Question",
+      "name": "{{ $faq.question }}",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "{{ $faq.answer | plainify }}"
+      }
+    }{{ if not (eq (add $index 1) $faqCount) }},{{ end }}
+    {{ end }}
+  ]
+}
+</script>
+{{ end }}
+{{ end }}
+
+{{ partial "breadcrumb-schema.html" . }}

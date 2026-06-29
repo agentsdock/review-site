@@ -1,0 +1,11 @@
+{{ $pages := where site.RegularPages "Section" "posts" }}
+[
+  {{ range $index, $page := $pages }}
+  {
+    "title": "{{ $page.Title }}",
+    "url": "{{ $page.Permalink }}",
+    "summary": "{{ with $page.Params.summary }}{{ . }}{{ end }}",
+    "date": "{{ $page.Date.Format "2006-01-02" }}"
+  }{{ if not (eq (add $index 1) (len $pages)) }},{{ end }}
+  {{ end }}
+]

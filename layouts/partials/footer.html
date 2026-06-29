@@ -1,0 +1,38 @@
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <h3 class="footer-logo">{{ site.Title }}</h3>
+                <p class="footer-desc">{{ site.Params.description }}</p>
+                <p class="affiliate-disclaimer">{{ site.Params.affiliate.disclaimer }}</p>
+            </div>
+
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    {{ range site.Menus.footer }}
+                    <li><a href="{{ .URL }}">{{ .Name }}</a></li>
+                    {{ end }}
+                </ul>
+            </div>
+
+            <div class="footer-categories">
+                <h4>Categories</h4>
+                <ul>
+                    <li><a href="/electronics/">Electronics</a></li>
+                    <li><a href="/home-kitchen/">Home & Kitchen</a></li>
+                    <li><a href="/health-fitness/">Health & Fitness</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-contact">
+                <h4>Contact</h4>
+                <p><a href="mailto:{{ site.Params.email }}">{{ site.Params.email }}</a></p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>{{ site.Copyright | safeHTML }}</p>
+        </div>
+    </div>
+</footer>

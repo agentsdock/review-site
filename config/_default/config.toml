@@ -1,0 +1,54 @@
+baseURL = "https://testedharbor.com/"
+title = "TestedHarbor"
+copyright = "Copyright &copy; {year} TestedHarbor. All rights reserved."
+languageCode = "en"
+defaultContentLanguage = "en"
+enableRobotsTXT = true
+enableEmoji = true
+disableKinds = ["taxonomy", "term"]
+disableAliases = false
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+  section = ["HTML"]
+  taxonomy = ["HTML"]
+
+[outputFormats.RSS]
+  mediatype = "application/rss+xml"
+  baseName = "feed"
+
+[outputFormats.JSON]
+  mediatype = "application/json"
+  baseName = "search"
+
+[minify]
+  disableCSS = false
+  disableHTML = false
+  disableJS = false
+  disableJSON = false
+  disableSVG = false
+  disableXML = false
+
+  [minify.tdewolff.html]
+    keepDocumentTags = true
+    keepEndTags = true
+    keepQuotes = false
+    keepWhitespace = false
+
+[services]
+  [services.googleAnalytics]
+    ID = "G-XXXXXXXXXX"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+    [markup.goldmark.parser]
+      [markup.goldmark.parser.attribute]
+        block = true
+  [markup.highlight]
+    codeFences = false
+  [markup.tableOfContents]
+    endLevel = 3
+    ordered = false
+    startLevel = 2

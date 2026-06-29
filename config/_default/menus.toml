@@ -1,0 +1,49 @@
+[[main]]
+  name = "Home"
+  url = "/"
+  weight = 1
+
+[[main]]
+  name = "Electronics"
+  url = "/electronics/"
+  weight = 2
+
+[[main]]
+  name = "Home & Kitchen"
+  url = "/home-kitchen/"
+  weight = 3
+
+[[main]]
+  name = "Health & Fitness"
+  url = "/health-fitness/"
+  weight = 4
+
+[[main]]
+  name = "About"
+  url = "/about/"
+  weight = 5
+
+[[main]]
+  name = "Contact"
+  url = "/contact/"
+  weight = 6
+
+[[footer]]
+  name = "About Us"
+  url = "/about/"
+  weight = 1
+
+[[footer]]
+  name = "Contact"
+  url = "/contact/"
+  weight = 2
+
+[[footer]]
+  name = "Privacy Policy"
+  url = "/privacy/"
+  weight = 3
+
+[[footer]]
+  name = "How We Test"
+  url = "/how-we-test/"
+  weight = 4

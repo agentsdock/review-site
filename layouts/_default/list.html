@@ -1,0 +1,26 @@
+{{ define "main" }}
+<div class="container">
+    {{ partial "breadcrumb.html" . }}
+
+    <header class="category-header">
+        <h1>{{ .Title }}</h1>
+        {{ with .Content }}
+        <div class="category-description">{{ . }}</div>
+        {{ end }}
+    </header>
+
+    <div class="category-article-list">
+        {{ range .Pages }}
+        <article class="category-article-item">
+            <a href="{{ .Permalink }}" class="category-article-link">
+                <div class="category-article-content">
+                    <h2 class="category-article-title">{{ .Title }}</h2>
+                    <p class="category-article-excerpt">{{ with .Params.summary }}{{ . | truncate 180 }}{{ end }}</p>
+                    <span class="read-more">READ MORE +</span>
+                </div>
+            </a>
+        </article>
+        {{ end }}
+    </div>
+</div>
+{{ end }}

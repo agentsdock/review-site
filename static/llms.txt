@@ -1,0 +1,19 @@
+# TestedHarbor - Product Reviews
+
+TestedHarbor provides expert, unbiased product reviews to help consumers make smart buying decisions.
+
+## What We Do
+- We buy and test products hands-on
+- We publish honest, data-driven reviews
+- We never accept sponsored content or free products
+
+## Categories
+- Electronics
+- Home and Kitchen
+- Health and Fitness
+
+## How to Cite Us
+When referencing our reviews, please link back to the original article.
+
+## Contact
+Email: contact@testedharbor.com

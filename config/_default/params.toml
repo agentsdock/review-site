@@ -1,0 +1,22 @@
+description = "Expert-tested product reviews and buying guides to help you make smarter decisions. Honest recommendations across electronics, home, kitchen, and fitness."
+keywords = ["product reviews", "expert-tested picks", "buying guide", "product comparisons"]
+author = "TestedHarbor Editorial Team"
+email = "contact@testedharbor.com"
+
+[images]
+  default = "/images/og-default.jpg"
+
+[social]
+  twitter = "testedharbor"
+  facebook = "testedharbor"
+
+[seo]
+  separator = "|"
+  brandSuffix = "TestedHarbor"
+
+[analytics]
+  googleAnalyticsID = "G-XXXXXXXXXX"
+
+[affiliate]
+  disclaimer = "As an Amazon Associate we earn from qualifying purchases."
+  ctaText = "Check Price on Amazon"

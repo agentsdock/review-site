@@ -1,0 +1,65 @@
+{{ $title := "" }}
+{{ if .IsHome }}
+    {{ $title = site.Title }}
+{{ else if .Params.title }}
+    {{ $title = printf "%s %s %s" .Title (site.Params.seo.separator | default "|") site.Params.seo.brandSuffix }}
+{{ else }}
+    {{ $title = printf "%s %s %s" .Title (site.Params.seo.separator | default "|") site.Params.seo.brandSuffix }}
+{{ end }}
+
+<title>{{ $title }}</title>
+
+<meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ with site.Params.description }}{{ . }}{{ end }}{{ end }}">
+<meta name="keywords" content="{{ with .Params.tags }}{{ delimit . ", " }}{{ else }}{{ with site.Params.keywords }}{{ delimit . ", " }}{{ end }}{{ end }}">
+<meta name="author" content="{{ site.Params.author }}">
+<meta name="generator" content="Hugo {{ hugo.Version }} - review-site">
+
+<link rel="canonical" href="{{ .Permalink }}">
+
+{{ with .OutputFormats.Get "RSS" }}
+<link rel="alternate" type="application/rss+xml" href="{{ .Permalink }}" title="{{ site.Title }}">
+{{ end }}
+
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="{{ if .IsHome }}website{{ else }}article{{ end }}">
+<meta property="og:title" content="{{ $title }}">
+<meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ with site.Params.description }}{{ . }}{{ end }}{{ end }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:site_name" content="{{ site.Title }}">
+{{ with .Params.featured_image }}
+<meta property="og:image" content="{{ . | absURL }}">
+{{ else }}
+<meta property="og:image" content="{{ site.Params.images.default | absURL }}">
+{{ end }}
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@{{ site.Params.social.twitter }}">
+<meta name="twitter:title" content="{{ $title }}">
+<meta name="twitter:description" content="{{ with .Description }}{{ . }}{{ else }}{{ with site.Params.description }}{{ . }}{{ end }}{{ end }}">
+{{ with .Params.featured_image }}
+<meta name="twitter:image" content="{{ . | absURL }}">
+{{ end }}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+{{ $css := resources.Get "css/main.css" }}
+{{ $css = $css | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}" media="all">
+
+{{ $css := resources.Get "css/responsive.css" }}
+{{ $css = $css | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}" media="all">
+
+{{ with site.Params.analytics.googleAnalyticsID }}
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ . }}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '{{ . }}');
+</script>
+{{ end }}
